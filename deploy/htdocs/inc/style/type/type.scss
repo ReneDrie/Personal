@@ -1,0 +1,142 @@
+// Headings
+.heading-01 {}
+
+// Paragraphs
+.copy-01 {}
+
+
+
+.logo-main {
+	position: absolute;
+	@include size(324px, 99px);
+	@include offset(50%, 50%);
+	transform: translate(-50%, -50%);
+	margin-top: -24px;
+
+	$lineWidth: 9px;
+
+	.sprite {
+		position: absolute;
+		background-image: url($logoSrc);
+		background-repeat: no-repeat;
+	}
+
+	.letter {
+		position: absolute;
+		height: $lineWidth * 5;
+		top: $lineWidth * 3;
+	}
+
+	.letter-r {
+		width: $lineWidth * 4;
+		left: $lineWidth * 4;
+	}
+
+	.letter-e,
+	.letter-n {
+		width: $lineWidth * 5;
+		left: $lineWidth * 11;
+	}
+
+	.letter-n {
+		left: $lineWidth * 19;
+	}
+
+	.letter-n + .letter-e {
+		left: $lineWidth * 27;
+	}
+
+	.r-01 { height: 100%; width: $lineWidth; background-position: #{-$lineWidth * 2} #{-$lineWidth * 2} }
+	.r-02 { left: $lineWidth; top: 0; height: $lineWidth; width: 25px; background-position: #{-$lineWidth * 3} #{-$lineWidth * 2} }
+	.r-03 { right: 0; top: $lineWidth; height: $lineWidth; width: 17px; background-position: #{-$lineWidth * 3} #{-$lineWidth * 3} }
+	.r-04 { right: 0; top: $lineWidth * 2; height: $lineWidth * 2; width: 23px; background-position: #{-$lineWidth * 3} #{-$lineWidth * 4} }
+	.r-05 { right: 0; top: $lineWidth * 4; height: $lineWidth; width: 17px; background-position: #{-$lineWidth * 3} #{-$lineWidth * 6} }
+
+	.e-01 { height: $lineWidth; width: 100%; background-position: #{-$lineWidth * 6} #{-$lineWidth * 2} }
+	.e-02 { top: $lineWidth * 2; height: $lineWidth; width: 100%; background-position: #{-$lineWidth * 6} #{-$lineWidth * 3} }
+	.e-03 { top: $lineWidth * 4; height: $lineWidth; width: 100%; background-position: #{-$lineWidth * 6} #{-$lineWidth * 4} }
+
+	.n-01 { height: 100%; width: $lineWidth; background-position: #{-$lineWidth * 11} #{-$lineWidth * 2} }
+	.n-04 { right: 0; height: 100%; width: $lineWidth; background-position: #{-$lineWidth * 12} #{-$lineWidth * 2} }
+	.n-02 { top: 0; left: $lineWidth; height: 22px; width: $lineWidth; background-position: #{-$lineWidth * 13} #{-$lineWidth * 2} }
+	.n-03 { bottom: 0; right: $lineWidth; height: 22px; width: $lineWidth; background-position: #{-$lineWidth * 13} #{-$lineWidth * 2 - 22} }
+
+	// Second E
+	.letter-n + .letter-e {
+		.e-01 { background-position: #{-$lineWidth * 6} #{-$lineWidth * 5} }
+		.e-02 { background-position: #{-$lineWidth * 6} #{-$lineWidth * 6} }
+		.e-03 { background-position: #{-$lineWidth * 6} #{-$lineWidth * 7} }
+	}
+
+	.line {
+		position: absolute;
+	}
+
+	.line-vertical {
+		top: 0;
+		left: 0;
+		width: $lineWidth;
+		height: 100%;
+
+		.sprite {
+			left: 0;
+			height: $lineWidth * 5.5;
+			width: 100%;
+		}
+
+		.l-01 {}
+		.l-02 { bottom: 0; background-position: 0 #{-$lineWidth * 5.5}; }
+	}
+
+	.line-horizontal {
+		top: 0;
+		left: $lineWidth;
+		right: $lineWidth;
+		height: $lineWidth;
+
+		.sprite {
+			height: 100%;
+			width: $lineWidth * 9;
+		}
+	}
+
+	.line-02 {
+		left: auto;
+		right: 0;
+
+		.l-01 { background-position: -$lineWidth 0 }
+		.l-02 { bottom: 0; background-position: -$lineWidth #{-$lineWidth * 5.5}; }
+	}
+
+	.line-03 {
+		//background-position: -($lineWidth * 2) 0;
+
+		.l-01 { background-position: -($lineWidth * 2) 0; }
+		.l-02 { left: $lineWidth * 9; background-position: -(($lineWidth * 2) + $lineWidth * 9) 0; }
+		.l-03 { left: $lineWidth * 18; background-position: -(($lineWidth * 2) + $lineWidth * 18) 0; }
+		.l-04 { left: $lineWidth * 27; background-position: -(($lineWidth * 2) + $lineWidth * 27) 0; }
+	}
+
+	.line-04 {
+		top: auto;
+		bottom: 0;
+		//background-position: -($lineWidth * 2) #{-$lineWidth};
+
+		.l-01 { background-position: -($lineWidth * 2) #{-$lineWidth}; }
+		.l-02 { left: $lineWidth * 9; background-position: -(($lineWidth * 2) + $lineWidth * 9) #{-$lineWidth}; }
+		.l-03 { left: $lineWidth * 18; background-position: -(($lineWidth * 2) + $lineWidth * 18) #{-$lineWidth}; }
+		.l-04 { left: $lineWidth * 27; background-position: -(($lineWidth * 2) + $lineWidth * 27) #{-$lineWidth}; }
+	}
+}
+
+.sub-title {
+	position: absolute;
+	top: 100%;
+	left: 50%;
+	margin-top: 1em;
+	font-size: 2.4rem;
+	font-weight: 300;
+	font-style: normal;
+	white-space: nowrap;
+	transform: translate(-50%, 0);
+}

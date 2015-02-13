@@ -1,0 +1,13 @@
+.wrapper {
+	position: fixed;
+	@include pos(0,0,0,0);
+	overflow-y: auto;
+	overflow: hidden;
+}
+
+.page {
+	position: absolute;
+	@include offset(-80%,0);
+	@include size(100%);
+}
+.page-home { left: 0; }
