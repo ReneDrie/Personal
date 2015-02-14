@@ -22,6 +22,7 @@ requirejs.config({
 	shim: {}
 });
 
+
 requirejs([
 	'app/Main',
 	'lib/externals',

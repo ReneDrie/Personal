@@ -1,6 +1,7 @@
 define(["require", "exports"], function (require, exports) {
     var CanvasBackground = (function () {
         function CanvasBackground(element) {
+            var _this = this;
             this.element = element;
             this._progress = 0;
             this._triangles = [];
@@ -15,9 +16,19 @@ define(["require", "exports"], function (require, exports) {
             this._canvas.style.height = window.innerHeight + 'px';
             this._context = this._canvas.getContext('2d');
             this._cachedBackgroundContext = this._cachedBackgroundCanvas.getContext('2d');
-            this.handleWindowResize();
+            window.addEventListener('resize', function () {
+                _this.handleWindowResize();
+            });
+            this.createBackground();
         }
         CanvasBackground.prototype.handleWindowResize = function () {
+            this._canvas.width = window.innerWidth * CanvasBackground.RETINA_MULTIPLIER;
+            this._canvas.height = window.innerHeight * CanvasBackground.RETINA_MULTIPLIER;
+            this._canvas.style.width = window.innerWidth + 'px';
+            this._canvas.style.height = window.innerHeight + 'px';
+            this.setBackground();
+        };
+        CanvasBackground.prototype.createBackground = function () {
             var xItems = Math.ceil(this._cachedBackgroundCanvas.width / CanvasBackground.ITEM_SIZE);
             var yItems = Math.ceil(this._cachedBackgroundCanvas.height / CanvasBackground.ITEM_SIZE);
             for (var i = 0; i < xItems; i++) {
@@ -25,6 +36,7 @@ define(["require", "exports"], function (require, exports) {
                     this.drawTriangles(i, j);
                 }
             }
+            this._backgroundImage = this._cachedBackgroundContext.getImageData(0, 0, this._cachedBackgroundCanvas.width, this._cachedBackgroundCanvas.height);
             this.setBackground();
         };
         CanvasBackground.prototype.setProgress = function (progress) {
@@ -34,7 +46,7 @@ define(["require", "exports"], function (require, exports) {
         CanvasBackground.prototype.setBackground = function () {
             var imageData = this._cachedBackgroundContext.getImageData(this._extraWidth - (this._extraWidth * this._progress), 0, this._canvas.width, this._cachedBackgroundCanvas.height);
             this._context.clearRect(0, 0, this._cachedBackgroundCanvas.width, this._cachedBackgroundCanvas.height);
-            this._context.putImageData(imageData, 0, 0);
+            this._context.putImageData(this._backgroundImage, (this._extraWidth - (this._extraWidth * this._progress)) * -1, 0);
         };
         CanvasBackground.prototype.drawTriangles = function (xPos, yPos) {
             var startX = xPos * CanvasBackground.ITEM_SIZE;

@@ -1,11 +1,16 @@
 define(["require", "exports"], function (require, exports) {
     var Homepage = (function () {
         function Homepage(element) {
-            var _this = this;
             this.element = element;
             this._timeline = new TimelineLite({
                 paused: true
             });
+            this.animateLetters();
+            this.animateLines();
+            this._timeline.to(this.element.getElementsByClassName('sub-title')[0], 0.8, { opacity: 0 }, Homepage.STARTDELAY);
+        }
+        Homepage.prototype.animateLetters = function () {
+            var _this = this;
             Array.prototype.forEach.call(this.element.getElementsByClassName('letter'), function (letter, i) {
                 var tl = new TimelineLite;
                 Array.prototype.forEach.call(letter.getElementsByClassName('sprite'), function (sprite, j) {
@@ -22,6 +27,8 @@ define(["require", "exports"], function (require, exports) {
                 });
                 _this._timeline.add(tl, Homepage.STARTDELAY + (i * 0.1));
             });
+        };
+        Homepage.prototype.animateLines = function () {
             var linesTl = new TimelineLite;
             var lines = this.element.getElementsByClassName('lines')[0];
             Array.prototype.forEach.call(lines.getElementsByClassName('sprite'), function (sprite, i) {
@@ -37,9 +44,9 @@ define(["require", "exports"], function (require, exports) {
                 }, startTime);
             });
             this._timeline.add(linesTl, Homepage.STARTDELAY);
-        }
+        };
         Homepage.prototype.update = function (progress) {
-            this._timeline.seek(Math.min(this._timeline.duration(), this._timeline.duration() * (progress * 4)));
+            this._timeline.seek(Math.min(this._timeline.duration(), this._timeline.duration() * (progress * 3)));
         };
         Homepage.prototype.destruct = function () {
         };

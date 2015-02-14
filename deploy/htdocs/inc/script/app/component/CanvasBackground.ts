@@ -20,6 +20,8 @@ class CanvasBackground
 	private _cachedBackgroundCanvas:HTMLCanvasElement;
 	private _cachedBackgroundContext:CanvasRenderingContext2D;
 
+	private _backgroundImage:ImageData;
+
 	private _triangles:ITriangle[] = [];
 
 	constructor(public element:HTMLElement)
@@ -41,10 +43,26 @@ class CanvasBackground
 		this._context = this._canvas.getContext('2d');
 		this._cachedBackgroundContext = this._cachedBackgroundCanvas.getContext('2d');
 
-		this.handleWindowResize();
+		window.addEventListener('resize', () =>
+		{
+			this.handleWindowResize();
+		});
+
+		this.createBackground();
 	}
 
 	private handleWindowResize():void
+	{
+		this._canvas.width = window.innerWidth * CanvasBackground.RETINA_MULTIPLIER;
+		this._canvas.height = window.innerHeight * CanvasBackground.RETINA_MULTIPLIER;
+		
+		this._canvas.style.width = window.innerWidth + 'px';
+		this._canvas.style.height = window.innerHeight + 'px';
+
+		this.setBackground();
+	}
+
+	private createBackground():void
 	{
 		var xItems:number = Math.ceil(this._cachedBackgroundCanvas.width / CanvasBackground.ITEM_SIZE);
 		var yItems:number = Math.ceil(this._cachedBackgroundCanvas.height / CanvasBackground.ITEM_SIZE);
@@ -56,6 +74,8 @@ class CanvasBackground
 				this.drawTriangles(i, j);
 			}
 		}
+
+		this._backgroundImage = this._cachedBackgroundContext.getImageData(0, 0, this._cachedBackgroundCanvas.width, this._cachedBackgroundCanvas.height);
 
 		this.setBackground();
 	}
@@ -71,7 +91,7 @@ class CanvasBackground
 		var imageData:ImageData = this._cachedBackgroundContext.getImageData(this._extraWidth - (this._extraWidth * this._progress), 0, this._canvas.width, this._cachedBackgroundCanvas.height);
 
 		this._context.clearRect(0, 0, this._cachedBackgroundCanvas.width, this._cachedBackgroundCanvas.height);
-		this._context.putImageData(imageData, 0, 0);
+		this._context.putImageData(this._backgroundImage, (this._extraWidth - (this._extraWidth * this._progress)) * -1, 0);
 	}
 
 	private drawTriangles(xPos:number, yPos:number):void

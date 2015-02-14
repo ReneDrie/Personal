@@ -78,7 +78,7 @@ class Main
 	private easeToScroll(time:number):void
 	{
 		var diff = (this._targetY - this._currentY);
-		this._currentY += diff / 6;
+		this._currentY += diff / 4;
 
 		this.setProgress();
 
@@ -93,7 +93,7 @@ class Main
 		}
 		else
 		{
-			console.log(' >> STOP', this._currentY, this._targetY);
+			//console.log(' >> STOP', this._currentY, this._targetY);
 			this._scrolling = false;
 		}
 	}
@@ -137,7 +137,7 @@ class Main
 			var duration = i == 0 || i == this._slides.length - 1 ? Main.SINGLE_PAGE_DURATION / 2 : Main.SINGLE_PAGE_DURATION;
 
 			this._mainTl.to(element, duration, {
-				left: i == this._slides.length - 1 ? '0%' : '80%',
+				left: i == this._slides.length - 1 ? '0%' : '75%',
 				ease: Linear.easeNone,
 				onUpdateParams: ['{self}'],
 				onUpdate: (timelineItem:TimelineLite) =>

@@ -50,7 +50,7 @@ define(["require", "exports", 'app/component/CanvasBackground', 'app/component/H
         Main.prototype.easeToScroll = function (time) {
             var _this = this;
             var diff = (this._targetY - this._currentY);
-            this._currentY += diff / 6;
+            this._currentY += diff / 4;
             this.setProgress();
             this._lastY = this._currentY;
             if (Math.abs(diff) > 0.0001) {
@@ -59,7 +59,7 @@ define(["require", "exports", 'app/component/CanvasBackground', 'app/component/H
                 });
             }
             else {
-                console.log(' >> STOP', this._currentY, this._targetY);
+                //console.log(' >> STOP', this._currentY, this._targetY);
                 this._scrolling = false;
             }
         };
@@ -94,7 +94,7 @@ define(["require", "exports", 'app/component/CanvasBackground', 'app/component/H
             this._slides.forEach(function (element, i) {
                 var duration = i == 0 || i == _this._slides.length - 1 ? Main.SINGLE_PAGE_DURATION / 2 : Main.SINGLE_PAGE_DURATION;
                 _this._mainTl.to(element, duration, {
-                    left: i == _this._slides.length - 1 ? '0%' : '80%',
+                    left: i == _this._slides.length - 1 ? '0%' : '75%',
                     ease: Linear.easeNone,
                     onUpdateParams: ['{self}'],
                     onUpdate: function (timelineItem) {

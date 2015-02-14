@@ -12,6 +12,14 @@ class Homepage
 			paused: true
 		});
 
+		this.animateLetters();
+		this.animateLines();
+
+		this._timeline.to(this.element.getElementsByClassName('sub-title')[0], 0.8, { opacity: 0 }, Homepage.STARTDELAY);
+	}
+
+	private animateLetters():void
+	{
 		Array.prototype.forEach.call(this.element.getElementsByClassName('letter'), (letter:HTMLElement, i:number) =>
 		{
 			var tl = new TimelineLite;
@@ -33,7 +41,10 @@ class Homepage
 
 			this._timeline.add(tl, Homepage.STARTDELAY + (i * 0.1));
 		});
+	}
 
+	private animateLines():void
+	{
 		var linesTl = new TimelineLite;
 		var lines = <HTMLElement>this.element.getElementsByClassName('lines')[0];
 		Array.prototype.forEach.call(lines.getElementsByClassName('sprite'), (sprite:HTMLElement, i:number) =>
@@ -50,12 +61,13 @@ class Homepage
 				ease: Linear.easeNone
 			}, startTime);
 		});
+
 		this._timeline.add(linesTl, Homepage.STARTDELAY);
 	}
 
 	public update(progress:number):void
 	{
-		this._timeline.seek(Math.min(this._timeline.duration(), this._timeline.duration() * (progress * 4)));
+		this._timeline.seek(Math.min(this._timeline.duration(), this._timeline.duration() * (progress * 3)));
 	}
 
 	public destruct():void
