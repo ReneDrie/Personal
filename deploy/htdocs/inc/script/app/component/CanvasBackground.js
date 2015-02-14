@@ -4,16 +4,14 @@ define(["require", "exports"], function (require, exports) {
             var _this = this;
             this.element = element;
             this._progress = 0;
+            this._initialSize = {};
             this._triangles = [];
             this._extraWidth = Math.round((window.innerWidth * 0.25) / CanvasBackground.ITEM_SIZE) * CanvasBackground.ITEM_SIZE;
             this._canvas = this.element.getElementsByTagName('canvas')[0];
             this._cachedBackgroundCanvas = document.createElement('canvas');
-            this._canvas.width = window.innerWidth * CanvasBackground.RETINA_MULTIPLIER;
-            this._canvas.height = window.innerHeight * CanvasBackground.RETINA_MULTIPLIER;
+            this.setCanvasSize();
             this._cachedBackgroundCanvas.width = this._canvas.width + this._extraWidth;
             this._cachedBackgroundCanvas.height = this._canvas.height;
-            this._canvas.style.width = window.innerWidth + 'px';
-            this._canvas.style.height = window.innerHeight + 'px';
             this._context = this._canvas.getContext('2d');
             this._cachedBackgroundContext = this._cachedBackgroundCanvas.getContext('2d');
             window.addEventListener('resize', function () {
@@ -22,17 +20,14 @@ define(["require", "exports"], function (require, exports) {
             this.createBackground();
         }
         CanvasBackground.prototype.handleWindowResize = function () {
-            this._canvas.width = window.innerWidth * CanvasBackground.RETINA_MULTIPLIER;
-            this._canvas.height = window.innerHeight * CanvasBackground.RETINA_MULTIPLIER;
-            this._canvas.style.width = window.innerWidth + 'px';
-            this._canvas.style.height = window.innerHeight + 'px';
+            this.setCanvasSize();
             this.setBackground();
         };
         CanvasBackground.prototype.createBackground = function () {
-            var xItems = Math.ceil(this._cachedBackgroundCanvas.width / CanvasBackground.ITEM_SIZE);
-            var yItems = Math.ceil(this._cachedBackgroundCanvas.height / CanvasBackground.ITEM_SIZE);
-            for (var i = 0; i < xItems; i++) {
-                for (var j = 0; j < yItems; j++) {
+            this._initialSize.x = Math.ceil(this._cachedBackgroundCanvas.width / CanvasBackground.ITEM_SIZE);
+            this._initialSize.y = Math.ceil(this._cachedBackgroundCanvas.height / CanvasBackground.ITEM_SIZE);
+            for (var i = 0; i < this._initialSize.x; i++) {
+                for (var j = 0; j < this._initialSize.y; j++) {
                     this.drawTriangles(i, j);
                 }
             }
@@ -44,7 +39,6 @@ define(["require", "exports"], function (require, exports) {
             this.setBackground();
         };
         CanvasBackground.prototype.setBackground = function () {
-            var imageData = this._cachedBackgroundContext.getImageData(this._extraWidth - (this._extraWidth * this._progress), 0, this._canvas.width, this._cachedBackgroundCanvas.height);
             this._context.clearRect(0, 0, this._cachedBackgroundCanvas.width, this._cachedBackgroundCanvas.height);
             this._context.putImageData(this._backgroundImage, (this._extraWidth - (this._extraWidth * this._progress)) * -1, 0);
         };
@@ -123,6 +117,12 @@ define(["require", "exports"], function (require, exports) {
         CanvasBackground.prototype.getRandomColor = function () {
             var opacity = Math.random() / 55;
             return Math.random() > 0.5 ? 'rgba(0,0,0,' + opacity + ')' : 'rgba(255,255,255,' + opacity + ')';
+        };
+        CanvasBackground.prototype.setCanvasSize = function () {
+            this._canvas.width = window.innerWidth * CanvasBackground.RETINA_MULTIPLIER;
+            this._canvas.height = window.innerHeight * CanvasBackground.RETINA_MULTIPLIER;
+            this._canvas.style.width = window.innerWidth + 'px';
+            this._canvas.style.height = window.innerHeight + 'px';
         };
         CanvasBackground.prototype.destruct = function () {
         };

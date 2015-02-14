@@ -1,5 +1,8 @@
 import ReferenceDefinitions = require('lib/ReferenceDefinitions');
 
+import ITriangle = require('app/data/interface/ITriangle');
+import ISize = require('app/data/interface/ISize');
+
 class CanvasBackground
 {
 	static RETINA_MULTIPLIER:number = 1;
@@ -21,6 +24,7 @@ class CanvasBackground
 	private _cachedBackgroundContext:CanvasRenderingContext2D;
 
 	private _backgroundImage:ImageData;
+	private _initialSize:ISize = <ISize>{};
 
 	private _triangles:ITriangle[] = [];
 
@@ -31,14 +35,10 @@ class CanvasBackground
 		this._canvas = <HTMLCanvasElement>this.element.getElementsByTagName('canvas')[0];
 		this._cachedBackgroundCanvas = document.createElement('canvas');
 
-		this._canvas.width = window.innerWidth * CanvasBackground.RETINA_MULTIPLIER;
-		this._canvas.height = window.innerHeight * CanvasBackground.RETINA_MULTIPLIER;
+		this.setCanvasSize();
 
 		this._cachedBackgroundCanvas.width = this._canvas.width + this._extraWidth;
 		this._cachedBackgroundCanvas.height = this._canvas.height;
-
-		this._canvas.style.width = window.innerWidth + 'px';
-		this._canvas.style.height = window.innerHeight + 'px';
 
 		this._context = this._canvas.getContext('2d');
 		this._cachedBackgroundContext = this._cachedBackgroundCanvas.getContext('2d');
@@ -53,30 +53,24 @@ class CanvasBackground
 
 	private handleWindowResize():void
 	{
-		this._canvas.width = window.innerWidth * CanvasBackground.RETINA_MULTIPLIER;
-		this._canvas.height = window.innerHeight * CanvasBackground.RETINA_MULTIPLIER;
-		
-		this._canvas.style.width = window.innerWidth + 'px';
-		this._canvas.style.height = window.innerHeight + 'px';
-
+		this.setCanvasSize();
 		this.setBackground();
 	}
 
 	private createBackground():void
 	{
-		var xItems:number = Math.ceil(this._cachedBackgroundCanvas.width / CanvasBackground.ITEM_SIZE);
-		var yItems:number = Math.ceil(this._cachedBackgroundCanvas.height / CanvasBackground.ITEM_SIZE);
+		this._initialSize.x = Math.ceil(this._cachedBackgroundCanvas.width / CanvasBackground.ITEM_SIZE);
+		this._initialSize.y = Math.ceil(this._cachedBackgroundCanvas.height / CanvasBackground.ITEM_SIZE);
 
-		for (var i = 0; i < xItems; i++)
+		for (var i = 0; i < this._initialSize.x; i++)
 		{
-			for (var j = 0; j < yItems; j++)
+			for (var j = 0; j < this._initialSize.y; j++)
 			{
 				this.drawTriangles(i, j);
 			}
 		}
 
 		this._backgroundImage = this._cachedBackgroundContext.getImageData(0, 0, this._cachedBackgroundCanvas.width, this._cachedBackgroundCanvas.height);
-
 		this.setBackground();
 	}
 
@@ -88,8 +82,6 @@ class CanvasBackground
 
 	public setBackground():void
 	{
-		var imageData:ImageData = this._cachedBackgroundContext.getImageData(this._extraWidth - (this._extraWidth * this._progress), 0, this._canvas.width, this._cachedBackgroundCanvas.height);
-
 		this._context.clearRect(0, 0, this._cachedBackgroundCanvas.width, this._cachedBackgroundCanvas.height);
 		this._context.putImageData(this._backgroundImage, (this._extraWidth - (this._extraWidth * this._progress)) * -1, 0);
 	}
@@ -196,17 +188,19 @@ class CanvasBackground
 		return Math.random() > 0.5 ? 'rgba(0,0,0,' + opacity + ')' : 'rgba(255,255,255,' + opacity + ')';
 	}
 
+	private setCanvasSize():void
+	{
+		this._canvas.width = window.innerWidth * CanvasBackground.RETINA_MULTIPLIER;
+		this._canvas.height = window.innerHeight * CanvasBackground.RETINA_MULTIPLIER;
+
+		this._canvas.style.width = window.innerWidth + 'px';
+		this._canvas.style.height = window.innerHeight + 'px';
+	}
+
 	destruct()
 	{
 
 	}
-}
-
-interface ITriangle {
-	x:number;
-	y:number;
-	color:string;
-	triangle:number[];
 }
 
 export = CanvasBackground;
