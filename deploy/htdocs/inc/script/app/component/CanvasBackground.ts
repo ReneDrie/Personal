@@ -43,6 +43,8 @@ class CanvasBackground
 		this._context = this._canvas.getContext('2d');
 		this._cachedBackgroundContext = this._cachedBackgroundCanvas.getContext('2d');
 
+		this._initialSize = this.getItemCount();
+
 		window.addEventListener('resize', () =>
 		{
 			this.handleWindowResize();
@@ -59,12 +61,12 @@ class CanvasBackground
 
 	private createBackground():void
 	{
-		this._initialSize.x = Math.ceil(this._cachedBackgroundCanvas.width / CanvasBackground.ITEM_SIZE);
-		this._initialSize.y = Math.ceil(this._cachedBackgroundCanvas.height / CanvasBackground.ITEM_SIZE);
+		var itemsX:number = Math.ceil(this._cachedBackgroundCanvas.width / CanvasBackground.ITEM_SIZE);
+		var itemsY:number = Math.ceil(this._cachedBackgroundCanvas.height / CanvasBackground.ITEM_SIZE);
 
-		for (var i = 0; i < this._initialSize.x; i++)
+		for (var i = 0; i < itemsX; i++)
 		{
-			for (var j = 0; j < this._initialSize.y; j++)
+			for (var j = 0; j < itemsY; j++)
 			{
 				this.drawTriangles(i, j);
 			}
@@ -186,6 +188,14 @@ class CanvasBackground
 	{
 		var opacity:number = Math.random() / 55;
 		return Math.random() > 0.5 ? 'rgba(0,0,0,' + opacity + ')' : 'rgba(255,255,255,' + opacity + ')';
+	}
+
+	private getItemCount():ISize
+	{
+		return <ISize>{
+			x: Math.ceil(window.innerWidth / CanvasBackground.ITEM_SIZE),
+			y: Math.ceil(window.innerHeight / CanvasBackground.ITEM_SIZE)
+		};
 	}
 
 	private setCanvasSize():void

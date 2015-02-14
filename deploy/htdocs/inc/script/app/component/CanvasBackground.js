@@ -14,6 +14,7 @@ define(["require", "exports"], function (require, exports) {
             this._cachedBackgroundCanvas.height = this._canvas.height;
             this._context = this._canvas.getContext('2d');
             this._cachedBackgroundContext = this._cachedBackgroundCanvas.getContext('2d');
+            this._initialSize = this.getItemCount();
             window.addEventListener('resize', function () {
                 _this.handleWindowResize();
             });
@@ -24,10 +25,10 @@ define(["require", "exports"], function (require, exports) {
             this.setBackground();
         };
         CanvasBackground.prototype.createBackground = function () {
-            this._initialSize.x = Math.ceil(this._cachedBackgroundCanvas.width / CanvasBackground.ITEM_SIZE);
-            this._initialSize.y = Math.ceil(this._cachedBackgroundCanvas.height / CanvasBackground.ITEM_SIZE);
-            for (var i = 0; i < this._initialSize.x; i++) {
-                for (var j = 0; j < this._initialSize.y; j++) {
+            var itemsX = Math.ceil(this._cachedBackgroundCanvas.width / CanvasBackground.ITEM_SIZE);
+            var itemsY = Math.ceil(this._cachedBackgroundCanvas.height / CanvasBackground.ITEM_SIZE);
+            for (var i = 0; i < itemsX; i++) {
+                for (var j = 0; j < itemsY; j++) {
                     this.drawTriangles(i, j);
                 }
             }
@@ -117,6 +118,12 @@ define(["require", "exports"], function (require, exports) {
         CanvasBackground.prototype.getRandomColor = function () {
             var opacity = Math.random() / 55;
             return Math.random() > 0.5 ? 'rgba(0,0,0,' + opacity + ')' : 'rgba(255,255,255,' + opacity + ')';
+        };
+        CanvasBackground.prototype.getItemCount = function () {
+            return {
+                x: Math.ceil(window.innerWidth / CanvasBackground.ITEM_SIZE),
+                y: Math.ceil(window.innerHeight / CanvasBackground.ITEM_SIZE)
+            };
         };
         CanvasBackground.prototype.setCanvasSize = function () {
             this._canvas.width = window.innerWidth * CanvasBackground.RETINA_MULTIPLIER;

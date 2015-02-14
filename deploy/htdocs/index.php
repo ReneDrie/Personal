@@ -118,6 +118,10 @@ $basepath = HttpHelper::getBasePath();
     </section>
 
     <a class="mailto" href="moc.neziuhneeirdener@nebki:otliam" title="Get in touch">moc.neziuhneeirdener@nebki</a>
+    <p class="scroll-text">
+        <span class="text">Scroll for more</span>
+        <span class="scroll-mouse"><i class="scroll-arrow icon-mouse-arrow"></i></span>
+    </p>
 
     <!--<div class="scroll-area"></div>-->
 

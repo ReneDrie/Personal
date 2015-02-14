@@ -1,0 +1,67 @@
+{
+	"IcoMoonType": "selection",
+	"icons": [
+		{
+			"icon": {
+				"paths": [
+					"M874.061 546.739c-44.467-44.416-116.506-44.416-160.896 0l-87.373 87.373v-520.346c-0.026-62.822-50.944-113.766-113.792-113.766s-113.792 50.944-113.792 113.766v520.346l-87.347-87.373c-44.416-44.416-116.454-44.416-160.896 0-44.442 44.442-44.416 116.48 0 160.922l272.179 272.154c20.813 26.854 53.248 44.186 89.856 44.186s69.043-17.331 89.856-44.186l272.205-272.154c44.416-44.442 44.416-116.454 0-160.922z"
+				],
+				"attrs": [
+					{}
+				],
+				"isMulticolor": false,
+				"grid": 0,
+				"tags": [
+					"mouse-arrow"
+				],
+				"colorPermutations": {
+					"6868681": [
+						0
+					]
+				}
+			},
+			"attrs": [
+				{}
+			],
+			"properties": {
+				"order": 1,
+				"id": 0,
+				"prevSize": 32,
+				"code": 58880,
+				"name": "mouse-arrow"
+			},
+			"setIdx": 0,
+			"iconIdx": 0
+		}
+	],
+	"height": 1024,
+	"metadata": {
+		"name": "icomoon"
+	},
+	"preferences": {
+		"showGlyphs": true,
+		"showQuickUse": true,
+		"showQuickUse2": true,
+		"showSVGs": true,
+		"fontPref": {
+			"prefix": "icon-",
+			"metadata": {
+				"fontFamily": "icomoon"
+			},
+			"metrics": {
+				"emSize": 1024,
+				"baseline": 6.25,
+				"whitespace": 50
+			}
+		},
+		"imagePref": {
+			"prefix": "icon-",
+			"png": true,
+			"useClassSelector": true,
+			"color": 4473924,
+			"bgColor": 16777215
+		},
+		"historySize": 100,
+		"showCodes": true
+	}
+}
