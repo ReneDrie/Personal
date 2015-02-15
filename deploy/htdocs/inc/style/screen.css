@@ -470,8 +470,8 @@ table {
             transform: translate3d(0, 20px, 0); }
 
   61% {
-    -webkit-transform: translate3d(0, -18px, 0);
-            transform: translate3d(0, -18px, 0); }
+    -webkit-transform: translate3d(0, -20px, 0);
+            transform: translate3d(0, -20px, 0); }
 
   100% {
     -webkit-transform: translate3d(0, 0, 0);
@@ -491,8 +491,8 @@ table {
             transform: translate3d(0, 20px, 0); }
 
   61% {
-    -webkit-transform: translate3d(0, -18px, 0);
-            transform: translate3d(0, -18px, 0); }
+    -webkit-transform: translate3d(0, -20px, 0);
+            transform: translate3d(0, -20px, 0); }
 
   100% {
     -webkit-transform: translate3d(0, 0, 0);
